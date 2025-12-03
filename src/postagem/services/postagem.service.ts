@@ -53,19 +53,37 @@ export class PostagemService {
     }
 
     async create(postagem: Postagem): Promise<Postagem> {
-        await this.temaService.findById(postagem.tema.id);
+        if (postagem.tema) {
+            let tema = await this.temaService.findById(postagem.tema.id)
+
+            if (!tema) {
+                throw new HttpException('Tema não encontrado!', HttpStatus.NOT_FOUND);
+            }
+
+        }
 
         return await this.postagemRepository.save(postagem);
     }
 
     async update(postagem: Postagem): Promise<Postagem> {
+        // Chama o método findById anteriro para pesquisar uma postagem pelo id extraido do objeto postagem
         let buscaPostagem = await this.findById(postagem.id);
-        let tema = await this.temaService.findById(postagem.tema.id);
 
-        if(!buscaPostagem || !postagem.id || !tema){
-            throw new HttpException("Postagem não encontrada", HttpStatus.NOT_FOUND);
+        // Se a postagem não existir, lace uma Exceção que vai direto para o Cliente com o status 404 Not Found
+        if (!buscaPostagem || !postagem.id) {
+            throw new HttpException('Postagem não encontrada!', HttpStatus.NOT_FOUND);
         }
 
+        if (postagem.tema) {
+            let tema = await this.temaService.findById(postagem.tema.id)
+
+            if (!tema) {
+                throw new HttpException('Tema não encontrado!', HttpStatus.NOT_FOUND);
+            }
+
+        }
+
+        // Se a postagem foi encontrada, cadastra ela no BD e retorna ela
         return await this.postagemRepository.save(postagem);
     }
 
