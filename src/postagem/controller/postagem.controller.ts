@@ -1,4 +1,4 @@
-import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Get, HttpCode, HttpStatus, Param, ParseIntPipe } from '@nestjs/common';
 import { PostagemService } from '../services/postagem.service';
 import { Postagem } from '../entities/postagem.entity';
 
@@ -11,6 +11,12 @@ export class PostagemController{
     @HttpCode(HttpStatus.OK) // define o código de status HTTP para a resposta
     findAll(): Promise<Postagem[]> {
         return this.postagemService.findAll();
+    }
+
+    @Get("/:id") // define um endpoint GET para a rota /postagens/:id
+    @HttpCode(HttpStatus.OK) // define o código de status HTTP para a resposta
+    findById( @Param("id", ParseIntPipe) id:number): Promise<Postagem> { 
+        return this.postagemService.findById(id);
     }
 
 }
