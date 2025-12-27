@@ -7,6 +7,7 @@ import { TemaModule } from './tema/tema.module';
 import { AuthModule } from './auth/auth.module';
 import { Usuario } from './usuarios/entities/usuario.entity';
 import { UsuarioModule } from './usuarios/usuario.module';
+import { AppController } from './app.controller';
 
 
 @Module({
@@ -26,7 +27,7 @@ import { UsuarioModule } from './usuarios/usuario.module';
     AuthModule,
     UsuarioModule
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}
