@@ -16,9 +16,12 @@ export class DevService implements TypeOrmOptionsFactory {
       database: process.env.DB_DATABASE,
       entities: [Postagem, Tema, Usuario],
       synchronize: true, // Em produção, geralmente usa-se false com migrations
-      ssl: {
-        rejectUnauthorized: false, // Necessário para conectar ao banco do Render
-      },
+      ssl: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+    },
     };
   }
 }
