@@ -8,14 +8,17 @@ import { Usuario } from '../../usuarios/entities/usuario.entity';
 export class DevService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'db_blogpessoal',
+      type: 'postgres', // Ou 'mysql', verifique qual você criou no Render
+      host: process.env.DB_HOST, 
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       entities: [Postagem, Tema, Usuario],
-      synchronize: true,
+      synchronize: true, // Em produção, geralmente usa-se false com migrations
+      ssl: {
+        rejectUnauthorized: false, // Necessário para conectar ao banco do Render
+      },
     };
   }
 }
