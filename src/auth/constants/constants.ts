@@ -1,5 +1,5 @@
 export const jwtConstants = {
-    secret: '37eb3d74e44561d2b9ec3e40da179f9e91571b7f350aee31cfee06b481f146fe',
-}
-
-// Todos os Tokens JWT gerados na aplicação serão assinados utilizando essa chave
+    secret: '34ba072e8bc732e78620a737a987c6cc3678dad8af20c7681822f1c69650aaca',
+  };
+  
+  // Todos os Tokens JWT gerados na aplicação serão assinados utilizando essa chave
